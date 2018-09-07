@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
 
   // get an array of all tags inside body tag
   const arrayOfTags = htmlTag.children[1].children;
-  console.log("arrayOfTags", arrayOfTags);
+
   // enable cross-origin-resource-sharing (CORS)
   res.setHeader('Access-Control-Allow-Origin', '*');
 

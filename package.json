@@ -1,5 +1,5 @@
 {
-  "name": "olb-lms-server",
+  "name": "olb-lme-server",
   "version": "0.0.0",
   "private": true,
   "scripts": {
