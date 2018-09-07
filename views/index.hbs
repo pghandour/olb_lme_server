@@ -1,2 +1,22 @@
 <h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<fieldset>
+  <legend>File Uploader</legend>
+  <form id="fileUploads" method='POST' enctype='multipart/form-data'>
+    <input id="selectBtn" type='file' multiple accept='text/html' style='display: none;' onchange='handleFiles(this.files)'>
+    <div id="dropbox">
+      <p id="lblDrop">Drag & Drop your files here
+        <span>lblSelect (or click to select files)</span>
+      </p>
+    </div>
+    <div id="preview">
+      <p id="noFileMessage">No files currently selected for upload</p>
+    </div>
+    <div>
+      <p id="totalFiles">Total Files: 0</p>
+      <button id="rmAllBtn" type='button'>Remove All Files</button>
+      <button id="uploadBtn" type='button'>Submit</button>
+    </div>
+  </form>
+</fieldset>
+
+<script src='javascripts/uploadTemplates.js'></script>

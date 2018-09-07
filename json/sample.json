@@ -1,0 +1,226 @@
+[
+  {
+    "type": "element",
+    "tagName": "div",
+    "attributes": [
+      {
+        "key": "id",
+        "value": "wrapper"
+      }
+    ],
+    "children": [
+      {
+        "type": "element",
+        "tagName": "div",
+        "attributes": [
+          {
+            "key": "class",
+            "value": "title"
+          }
+        ],
+        "children": [
+          {
+            "type": "comment",
+            "content": "This is a title"
+          },
+          {
+            "type": "element",
+            "tagName": "h2",
+            "attributes": [],
+            "children": [
+              {
+                "type": "text",
+                "content": "Sample Title"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "tagName": "br",
+        "attributes": [],
+        "children": []
+      },
+      {
+        "type": "element",
+        "tagName": "br",
+        "attributes": [],
+        "children": []
+      },
+      {
+        "type": "element",
+        "tagName": "div",
+        "attributes": [
+          {
+            "key": "class",
+            "value": "content"
+          }
+        ],
+        "children": [
+          {
+            "type": "comment",
+            "content": "This is a paragraph"
+          },
+          {
+            "type": "element",
+            "tagName": "p",
+            "attributes": [
+              {
+                "key": "data-name",
+                "value": "paragraph1"
+              },
+              {
+                "key": "class",
+                "value": "paragraph1"
+              }
+            ],
+            "children": [
+              {
+                "type": "text",
+                "content": "This is a testing for html2Json.js"
+              },
+              {
+                "type": "element",
+                "tagName": "br",
+                "attributes": [],
+                "children": []
+              },
+              {
+                "type": "text",
+                "content": "Here is a new line in the paragraph."
+              },
+              {
+                "type": "element",
+                "tagName": "br",
+                "attributes": [],
+                "children": []
+              },
+              {
+                "type": "text",
+                "content": "The end."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "tagName": "br",
+        "attributes": [],
+        "children": []
+      },
+      {
+        "type": "element",
+        "tagName": "hr",
+        "attributes": [],
+        "children": []
+      },
+      {
+        "type": "element",
+        "tagName": "br",
+        "attributes": [],
+        "children": []
+      },
+      {
+        "type": "element",
+        "tagName": "div",
+        "attributes": [
+          {
+            "key": "class",
+            "value": "productList"
+          }
+        ],
+        "children": [
+          {
+            "type": "element",
+            "tagName": "ul",
+            "attributes": [],
+            "children": [
+              {
+                "type": "element",
+                "tagName": "li",
+                "attributes": [],
+                "children": [
+                  {
+                    "type": "text",
+                    "content": "Visa Card"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "tagName": "li",
+                "attributes": [],
+                "children": [
+                  {
+                    "type": "text",
+                    "content": "Cash Back Mastercard"
+                  }
+                ]
+              },
+              {
+                "type": "element",
+                "tagName": "li",
+                "attributes": [],
+                "children": [
+                  {
+                    "type": "text",
+                    "content": "Bank Debit Card"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "tagName": "button",
+        "attributes": [
+          {
+            "key": "data-name",
+            "value": "btn-submit"
+          },
+          {
+            "key": "id",
+            "value": "btn-submit"
+          }
+        ],
+        "children": [
+          {
+            "type": "text",
+            "content": "Apply"
+          }
+        ]
+      },
+      {
+        "type": "element",
+        "tagName": "p",
+        "attributes": [],
+        "children": [
+          {
+            "type": "element",
+            "tagName": "a",
+            "attributes": [
+              {
+                "key": "href",
+                "value": "https://www.google.com"
+              },
+              {
+                "key": "data-name",
+                "value": "terms-conditions"
+              }
+            ],
+            "children": [
+              {
+                "type": "text",
+                "content": "Go to google.com"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
