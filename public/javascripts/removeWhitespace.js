@@ -1,24 +1,30 @@
 function removeEmptyNodes(nodes) {
   return nodes.filter(node => {
-    if (node.type === 'element') {
+
+    // keep only "element" nodes
+    if (node.type === "element") {
+
       node.children = removeEmptyNodes(node.children);
       return true
     }
-    return node.content.length
+
+    return false;
   })
 }
 
 function stripWhitespace(nodes) {
   return nodes.map(node => {
-    if (node.type === 'element') {
-      node.children = stripWhitespace(node.children)
+    if (node.type === "element") {
+      node.children = stripWhitespace(node.children);
     } else {
-      node.content = node.content.trim()
+      node.content = node.content.trim();
     }
     return node
   })
 }
 
-module.exports = function removeWhitespace(nodes) {
+function removeWhitespace(nodes) {
   return removeEmptyNodes(stripWhitespace(nodes))
 }
+
+module.exports = removeWhitespace;

@@ -9,35 +9,43 @@
 </head>
 
 <body>
+  <div></div>
   <div id="wrapper">
     <div class="title">
       <!-- This is a title -->
-      <h2>Sample Title</h2>
+      <h2 data-name="header1">Welcome to BMO Online Banking</h2>
     </div>
-    <br />
-    <br />
-    <div class="content">
+    <div><img src="https://www.bmo.com/resources/images/logos/bank-of-montreal/bmo.svg" alt="logo image" data-name="img1"></div>
+    <div class="mypara">
       <!-- This is a paragraph -->
       <p data-name="paragraph1" class="paragraph1">
-        This is a testing for html2Json.js<br />
-        Here is a new line in the paragraph.<br />
-        The end.
+        This is a testing for html2Json.js
+        <span style="font-size: 18pt; color:red;font-weight: bold;">Surprise!!!</span>
+        Here is the same line in the paragraph.<br />
+        Next line is after tag "br"
       </p>
     </div>
-    <br />
     <hr />
-    <br />
+    <h3 data-name="header2">Our current products:</h3>
     <div class="productList">
-      <ul>
+      <ul data-name="ul1" class="list">
         <li>Visa Card</li>
         <li>Cash Back Mastercard</li>
         <li>Bank Debit Card</li>
       </ul>
     </div>
-
-    <button data-name="btn-submit" id="btn-submit">Apply</button>
+    <div data-name="div1">New BMO online banking website is coming!</div>
+    <div class="productList">
+      <ol data-name="ol1" class="list">
+        <li>Visa Card</li>
+        <li>Cash Back Mastercard</li>
+        <li>Bank Debit Card</li>
+      </ol>
+    </div>
+    <button data-name="button1" id="btn-submit">Apply</button>
+    <button data-name="button2" id="btn-cancel">Cancel</button>
     <p>
-      <a href="https://www.google.com" data-name="terms-conditions">Go to google.com</a>
+      <a href="https://www.google.com" data-name="link1">Go to google.com</a>
     </p>
   </div>
 </body>
