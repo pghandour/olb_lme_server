@@ -49,7 +49,8 @@ function convertHtml2Json(templateName) {
   // write json data into a file on the server
   fs.writeFile(jsonFilePath, JSON.stringify(finalNodes), function (err) {
     if (err) throw err;
-    console.log(`===> \"${jsonName}\.json" is successfully saved in "/json" folder!`);
+    console.log(`\"${jsonName}\.json" is successfully saved in "/json" folder!`);
+    console.log("--------------------------------------");
   });
 }
 

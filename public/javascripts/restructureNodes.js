@@ -1,14 +1,18 @@
 // Step 4: restructure nodes to bring all nodes to the same level
-let list1 = [];
-function restructureNodes(nodes) {
+function restructuring(nodes, list) {
   nodes.forEach(node => {
-    list1.push(node);
+    list.push(node);
     if (node.children.length > 0) {
-      restructureNodes(node.children);
+      restructuring(node.children, list);
     }
   });
 
-  return list1;
+  return list;
+}
+
+function restructureNodes(nodes) {
+  let nodesList = [];
+  return restructuring(nodes, nodesList);
 }
 
 module.exports = restructureNodes;

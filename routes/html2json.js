@@ -2,17 +2,17 @@ const express = require('express');
 const router = express.Router();
 const convertHtml2Json = require('../public/javascripts/convertHtml2Json.js');
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  const templateName = "sample.html";
+router.post('/', function (req, res, next) {
+  const templateName = JSON.parse(req.body.templates);
 
-  convertHtml2Json(templateName);
-
-  // enable cross-origin-resource-sharing (CORS)
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  if (templateName.length > 0) {
+    templateName.forEach(template => {
+      convertHtml2Json(template);
+    });
+  }
 
   // return the json results
-  res.send("Template is converted to a JSON file.");
+  res.send("Success: Convert HTML to JSON");
 });
 
 module.exports = router;

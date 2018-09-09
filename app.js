@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const html2json = require('./routes/html2json');
 const saveTemplateOnServer = require('./routes/saveTemplateOnServer');
+const successful = require('./routes/successful');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/html2json', html2json);
 app.use('/saveTemplateOnServer', saveTemplateOnServer);
+app.use('/successful', successful);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

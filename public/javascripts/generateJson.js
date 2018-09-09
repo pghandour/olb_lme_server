@@ -1,6 +1,6 @@
 // step 6: generate a new nodes object with tagName and data-name
 function generateJson(nodes) {
-  let list2 = [];
+  let list = [];
 
   nodes.forEach(node => {
     let dataName = "";
@@ -13,7 +13,7 @@ function generateJson(nodes) {
       }
     });
 
-    list2.push(
+    list.push(
       {
         "tagName": node.tagName,
         "data-name": dataName
@@ -21,7 +21,7 @@ function generateJson(nodes) {
     );
   });
 
-  return list2;
+  return list;
 }
 
 module.exports = generateJson;

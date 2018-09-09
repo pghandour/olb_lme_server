@@ -195,11 +195,23 @@ window.addEventListener('drop', preventDrop, false);
 submit.addEventListener('click', (ev) => {
   ev.preventDefault();
 
-  sendFiles('/saveTemplateOnServer', allFilesList);
+  const sendFilesPromise = sendFiles('/saveTemplateOnServer', allFilesList);
+  if (sendFilesPromise) {
+    sendFilesPromise.then(res => {
+      const convertFiles2JsonPromise = convertFiles2Json('/html2json', res);
+      if (convertFiles2JsonPromise) {
+        convertFiles2JsonPromise.then((result) => {
+          document.location.href = `/successful/${result}`;
+        });
+      }
+    });
+  }
 }, false);
 
+// send selected files to server
 function sendFiles(url = ``, data) {
   let len = data.length;
+
   if (len > 0) {
     let formData = new FormData();
 
@@ -207,14 +219,27 @@ function sendFiles(url = ``, data) {
       formData.append('templates', data[i]);
     }
 
-    fetch(url, {
+    return fetch(url, {
       method: 'POST',
       body: formData
     })
-      .then(response => {
-        return response.text()
-      })
-      .then(response => console.log('Success => ', response))
+      .then(res => res.text())
+      .then(result => result)
       .catch(error => console.error('Error =>', error));
   }
+}
+
+function convertFiles2Json(url = ``, files) {
+  const templates = { templates: files };
+
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'content-type': "application/json"
+    },
+    body: JSON.stringify(templates)
+  })
+    .then(res => res.text())
+    .then(result => result)
+    .catch(error => console.error('Error =>', error));
 }
