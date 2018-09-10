@@ -25,8 +25,8 @@ const generateJson = require('./generateJson.js');
  */
 function convertHtml2Json(templateName) {
   const templatePath = `./uploads/${templateName}`;
-  const jsonName = templateName.slice(0, -5);
-  const jsonFilePath = `./json/${jsonName}.json`;
+  const jsonName = `${templateName.slice(0, -5)}.json`;
+  const jsonFilePath = `./convertedJson/${jsonName}`;
 
   // Step 1: read html file
   const html = fs.readFileSync(templatePath, { encoding: 'utf8' });
@@ -47,11 +47,44 @@ function convertHtml2Json(templateName) {
   const finalNodes = generateJson(datanameNodes);
 
   // write json data into a file on the server
-  fs.writeFile(jsonFilePath, JSON.stringify(finalNodes), function (err) {
-    if (err) throw err;
-    console.log(`\"${jsonName}\.json" is successfully saved in "/json" folder!`);
-    console.log("--------------------------------------");
-  });
+  fs.writeFileSync(jsonFilePath, JSON.stringify(finalNodes));
+  console.log(`\"${jsonName}\" is successfully saved in "/json" folder!`);
+  console.log("--------------------------------------");
+  writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath);
+}
+
+function writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath) {
+  const dataPath = './data/convertedTemplateInfo.json';
+  let currentData = [];
+  console.log(">>>>>>>>>> Reading");
+  currentData = JSON.parse(fs.readFileSync(dataPath));
+  console.log(">>>>>>>>>> Finish Reading");
+  const dataToSave = {
+    'tempalteName': templateName,
+    'templatePath': templatePath,
+    'convertedJsonName': jsonName,
+    'convertedJsonPath': jsonFilePath
+  };
+
+  let len = currentData.length;
+  if (len > 0) {
+    for (let i = 0; i < len; i++) {
+      if (currentData[i].tempalteName === dataToSave.tempalteName) {
+        currentData[i] = dataToSave;
+        return;
+      }
+      if (i === len - 1) {
+        currentData.push(dataToSave);
+      }
+    }
+  } else {
+    currentData.push(dataToSave);
+  }
+  console.log("................... Writing");
+  fs.writeFileSync(dataPath, JSON.stringify(currentData));
+  console.log(`Data for ${templateName} is successfully saved in "${dataPath}".`);
+  console.log("--------------------------------------");
+  console.log(".................... Finish Writing");
 }
 
 module.exports = convertHtml2Json;

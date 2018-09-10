@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/:result', function (req, res, next) {
-  const result = req.params.result;
-  res.render('successful', { title: result });
+router.get('/html2json', function (req, res, next) {
+  res.render('successful', { title: 'Success: Convert HTML to JSON' });
 });
 
 module.exports = router;

@@ -201,7 +201,7 @@ submit.addEventListener('click', (ev) => {
       const convertFiles2JsonPromise = convertFiles2Json('/html2json', res);
       if (convertFiles2JsonPromise) {
         convertFiles2JsonPromise.then((result) => {
-          document.location.href = `/successful/${result}`;
+          // document.location.href = `/successful/html2json`;
         });
       }
     });
