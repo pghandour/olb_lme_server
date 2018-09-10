@@ -195,13 +195,14 @@ window.addEventListener('drop', preventDrop, false);
 submit.addEventListener('click', (ev) => {
   ev.preventDefault();
 
-  const sendFilesPromise = sendFiles('/saveTemplateOnServer', allFilesList);
+  const sendFilesPromise = sendFiles('/uploading/templates', allFilesList);
   if (sendFilesPromise) {
     sendFilesPromise.then(res => {
-      const convertFiles2JsonPromise = convertFiles2Json('/html2json', res);
+      const convertFiles2JsonPromise = convertFiles2Json('/uploading/html2json', res);
       if (convertFiles2JsonPromise) {
         convertFiles2JsonPromise.then((result) => {
-          // document.location.href = `/successful/html2json`;
+          removeAllFiles();
+          document.location.href = `/successful/html2json`;
         });
       }
     });

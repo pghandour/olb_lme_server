@@ -49,18 +49,18 @@ function convertHtml2Json(templateName) {
   // write json data into a file on the server
   fs.writeFileSync(jsonFilePath, JSON.stringify(finalNodes));
   console.log(`\"${jsonName}\" is successfully saved in "/json" folder!`);
-  console.log("--------------------------------------");
+  console.log('--------------------------------------------------------');
   writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath);
 }
 
 function writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath) {
   const dataPath = './data/convertedTemplateInfo.json';
   let currentData = [];
-  console.log(">>>>>>>>>> Reading");
+
   currentData = JSON.parse(fs.readFileSync(dataPath));
-  console.log(">>>>>>>>>> Finish Reading");
+
   const dataToSave = {
-    'tempalteName': templateName,
+    'templateName': templateName,
     'templatePath': templatePath,
     'convertedJsonName': jsonName,
     'convertedJsonPath': jsonFilePath
@@ -69,9 +69,9 @@ function writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePat
   let len = currentData.length;
   if (len > 0) {
     for (let i = 0; i < len; i++) {
-      if (currentData[i].tempalteName === dataToSave.tempalteName) {
+      if (currentData[i].templateName === dataToSave.templateName) {
         currentData[i] = dataToSave;
-        return;
+        break;
       }
       if (i === len - 1) {
         currentData.push(dataToSave);
@@ -80,11 +80,10 @@ function writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePat
   } else {
     currentData.push(dataToSave);
   }
-  console.log("................... Writing");
+
   fs.writeFileSync(dataPath, JSON.stringify(currentData));
-  console.log(`Data for ${templateName} is successfully saved in "${dataPath}".`);
-  console.log("--------------------------------------");
-  console.log(".................... Finish Writing");
+  console.log(`Info for ${templateName} is successfully saved in "${dataPath}".`);
+  console.log('--------------------------------------------------------');
 }
 
 module.exports = convertHtml2Json;

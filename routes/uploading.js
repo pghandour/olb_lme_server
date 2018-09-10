@@ -3,13 +3,9 @@ const router = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const fs = require('fs');
+const convertHtml2Json = require('../public/javascripts/convertHtml2Json.js');
 
-router.get('/', function (req, res, next) {
-  res.render('templateList', { title: 'Template List' });
-});
-
-/* POST users listing. */
-router.post('/', upload.array('templates'), (req, res, next) => {
+router.post('/templates', upload.array('templates'), (req, res, next) => {
   const files = req.files;
   let uploadedFiles = [];
 
@@ -24,6 +20,19 @@ router.post('/', upload.array('templates'), (req, res, next) => {
   }
 
   res.send(JSON.stringify(uploadedFiles));
+});
+
+router.post('/html2json', function (req, res, next) {
+  const templateName = JSON.parse(req.body.templates);
+
+  if (templateName.length > 0) {
+    templateName.forEach(template => {
+      convertHtml2Json(template);
+    });
+  }
+
+  // return the json results
+  res.send("Success: Convert HTML to JSON");
 });
 
 module.exports = router;
