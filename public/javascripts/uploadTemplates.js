@@ -201,8 +201,8 @@ submit.addEventListener('click', (ev) => {
       const convertFiles2JsonPromise = convertFiles2Json('/uploading/html2json', res);
       if (convertFiles2JsonPromise) {
         convertFiles2JsonPromise.then((result) => {
-          removeAllFiles();
           document.location.href = `/successful/html2json`;
+          removeAllFiles();
         });
       }
     });
