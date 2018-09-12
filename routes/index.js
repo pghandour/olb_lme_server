@@ -36,9 +36,4 @@ router.get('/getData/:name', function (req, res, next) {
   }
 });
 
-// auto-generate fields templates in HTML file
-router.get('generateFieldsTemplate/:name', function (req, res, next) {
-
-});
-
 module.exports = router;
