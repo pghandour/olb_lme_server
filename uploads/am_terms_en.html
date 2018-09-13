@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" id="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>BMO Bank of Montreal</title>
+  <link rel="stylesheet" href="https://www.bmo.com/LME/css/global_mp.css" type="text/css" media="screen" />
+  <!-- ad-hoc styles -->
+  <style type="text/css">
+    p {
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+  <script type="text/javascript">
+    function localInit() {
+      var resize = setTimeout(function () {
+        var winW = 465, winH = 250;
+        if (document.body && document.body.offsetWidth) {
+          winW = document.body.offsetWidth;
+          winH = document.body.offsetHeight;
+        }
+        if (document.compatMode == 'CSS1Compat' &&
+          document.documentElement &&
+          document.documentElement.offsetWidth) {
+          winW = document.documentElement.offsetWidth;
+          winH = document.documentElement.offsetHeight;
+        }
+        if (self.innerWidth && self.innerHeight) {
+          winW = self.innerWidth;
+          winH = self.innerHeight;
+        }
+
+        document.getElementById("content").style.height = (winH - 106) + "px";
+      }, 150);
+    }
+  </script>
+</head>
+
+<body class="popup" onload="localInit()">
+  <div id="wrapper">
+    <div id="header" class="BMO">
+      <!-- -->
+    </div>
+    <div id="content">
+      <div>
+        <h2 data-name="content-title">{{content-title}}</h2>
+        <p data-name="paragraph">{{paragraph}}</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+[
+  {
+    "tagName": "h2",
+    "dataName": "content-title"
+  },
+  {
+    "tagName": "p",
+    "dataName": "paragraph"
+  }
+]

@@ -1,0 +1,33 @@
+[
+  {
+    "tagName": "img",
+    "dataName": "img1-path",
+    "dataName2": "img1-alt"
+  },
+  {
+    "tagName": "h1",
+    "dataName": "header1"
+  },
+  {
+    "tagName": "p",
+    "dataName": "paragraph1"
+  },
+  {
+    "tagName": "p",
+    "dataName": "header2"
+  },
+  {
+    "tagName": "ul",
+    "dataName": "list1"
+  },
+  {
+    "tagName": "a",
+    "dataName": "btn1-txt",
+    "dataName2": "btn1-link"
+  },
+  {
+    "tagName": "a",
+    "dataName": "tc-link-title",
+    "dataName2": "tc-link"
+  }
+]
