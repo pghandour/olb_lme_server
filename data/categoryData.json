@@ -1,0 +1,22 @@
+[
+	{
+			"name": "Marketing Pages",
+			"description": "Marketing Pages",
+			"shortcode": "mp"
+	},
+	{
+			"name": "Inline",
+			"description": "Inline",
+			"shortcode": "inl"
+	},
+	{
+			"name": "Interstatial",
+			"description": "Interstatial",
+			"shortcode": "int"
+	},
+	{
+			"name": "Message Center",
+			"description": "Message Center",
+			"shortcode": "mc"
+	}
+]
