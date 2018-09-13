@@ -1,197 +1,65 @@
-import React, { Component } from 'react';
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
-import FieldsTemplate from './components/FieldsTemplate';
-import PreviewTemplate from './components/PreviewTemplate';
-import TestingInput from './components/TestingInput';
+import EditTemplate from './components/EditTemplate';
 
-class App extends Component {
-  state = {
-    templateName: '',
-    data: [],
-    expectedFields: [],
-    fieldInputs: {},
-    listItems: {}
-  }
+const App = () => (
+  <Router className="App">
+    <div>
+      <Link className="" to="/"><button>Home</button></Link>
+      <Link className="" to="/about"><img src="https://www.bmo.com/img/main/personal/bank-accounts/pages/banking-services/large/app-icon-bmo.png"></img></Link>
+      <Link className="" to="/topics"><button>Topics</button></Link>
+      <Link className="" to="/edit-template"><button>Edit Template</button></Link>
 
-  render() {
-    const { templateName } = this.state;
+      <Route exact path="/" component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/topics" component={Topics} />
+      <Route path="/edit-template" component={EditTemplate} />
+    </div>
+  </Router>
+);
 
-    return (
-      <div>
-        <TestingInput
-          onTemplateNameChange={this.onTemplateNameChange}
-          getData={this.getData}
-          templateName={templateName}
-        />
-        <hr />
-        {this.showTemplates()}
-      </div>
-    );
-  }
+const Home = () => (
+  <div>
+    <h2>Home</h2>
+  </div>
+);
 
-  onTemplateNameChange = (e) => {
-    this.setState({
-      templateName: e.target.value
-    });
-  }
+const About = () => (
+  <div>
+    <h2>About</h2>
+    <EditTemplate />
+  </div>
+);
 
-  decideExpectedFields = (nodes) => {
-    let expectedFields = [];
+const Topics = ({ match }) => (
+  <div>
+    <h2>Topics</h2>
+    <ul>
+      <li>
+        <Link to={`${match.url}/rendering`}>Rendering with React</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/components`}>Components</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
+      </li>
+    </ul>
 
-    nodes.forEach(node => {
-      expectedFields.push({ tagName: node.tagName, dataName: node.dataName });
-      if (node.dataName2 !== undefined) {
-        expectedFields.push({ tagName: node.tagName, dataName: node.dataName2 });
-      }
-    });
-    return expectedFields;
-  }
+    <Route path={`${match.url}/:topicId`} component={Topic} />
+    <Route
+      exact
+      path={match.url}
+      render={() => <h3>Please select a topic.</h3>}
+    />
+  </div>
+);
 
-  getData = (e) => {
-    e.preventDefault();
-
-    fetch(`/getData/${this.state.templateName}.html`, {
-      mode: "cors",
-    })
-      .then(res => res.json())
-      .then(result => {
-        console.log("Received data => ", result);
-        console.log('--------------------------------------------------------');
-
-        const expectedFields = this.decideExpectedFields(result);
-        const defaultInputs = this.initializeInputs(expectedFields);
-        const defaultLists = this.initializeLists(result);
-
-        this.setState({
-          templateName: '',
-          data: result,
-          expectedFields: expectedFields,
-          fieldInputs: defaultInputs,
-          listItems: defaultLists
-        });
-      });
-  }
-
-  showTemplates = () => {
-    const { expectedFields, fieldInputs, data, listItems } = this.state;
-
-    if (data.length > 0) {
-      return (
-        <div className='edit-template-container'>
-          <PreviewTemplate
-            data={data}
-            fieldInputs={fieldInputs}
-            listItems={listItems}
-          />
-          <FieldsTemplate
-            expectedFields={expectedFields}
-            onFieldInputChange={this.onFieldInputChange}
-            fieldInputs={fieldInputs}
-            addNewItem={this.addNewItem}
-            listItems={listItems}
-            onListItemChange={this.onListItemChange}
-            deleteItem={this.deleteItem}
-          />
-        </div>
-      );
-    } else { return null; }
-  }
-
-  /*
-    fieldInputs = {
-      'header1': 'This is title'
-    }
-  */
-  onFieldInputChange = (e) => {
-    let newInputs = this.state.fieldInputs;
-    const updateId = e.target.id;
-    const updateValue = e.target.value;
-
-    newInputs[updateId] = updateValue;
-
-    this.setState({
-      fieldInputs: newInputs
-    })
-  }
-
-  onListItemChange = (e) => {
-    const itemId = e.target.id;
-    const listName = e.target.name;
-    const newValue = e.target.value;
-
-    let updateListItems = this.state.listItems;
-    updateListItems[listName][itemId] = newValue;
-
-    this.setState(state => ({
-      listItems: updateListItems
-    }));
-  }
-
-  initializeInputs = (expectedFields) => {
-    let initialValues = {};
-    const numOfInputs = expectedFields.length;
-
-    for (let i = 0; i < numOfInputs; i++) {
-      let key = expectedFields[i].dataName;
-      initialValues[key] = '';
-    }
-
-    return initialValues;
-  }
-
-  initializeLists = (data) => {
-    let initialValues = {};
-    const numOfInputs = data.length;
-
-    for (let i = 0; i < numOfInputs; i++) {
-      let tag = data[i].tagName;
-
-      if (tag === 'ol' || tag === 'ul') {
-        let key = data[i].dataName;
-        initialValues[key] = [];
-      }
-    }
-
-    return initialValues;
-  }
-
-  addNewItem = (e) => {
-    e.preventDefault();
-
-    const updateName = e.target.name;
-    const updateValue = this.state.fieldInputs[updateName];
-
-    if (!updateValue.length) {
-      return;
-    }
-
-    // add item to listItems
-    let listItems = this.state.listItems;
-
-    listItems[updateName].push(updateValue);
-
-    // clear the text from input field
-    let currentInputs = this.state.fieldInputs;
-
-    currentInputs[updateName] = '';
-
-    this.setState(state => ({
-      listItems: listItems,
-      fieldInputs: currentInputs
-    }));
-  }
-
-  deleteItem = (e) => {
-    const itemId = e.target.id;
-    const listName = e.target.name;
-
-    let updateListItems = this.state.listItems;
-    updateListItems[listName].splice(itemId, 1);
-
-    this.setState(state => ({
-      listItems: updateListItems
-    }));
-  }
-}
+const Topic = ({ match }) => (
+  <div>
+    <h3>{match.params.topicId}</h3>
+  </div>
+);
 
 export default App;
