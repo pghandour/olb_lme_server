@@ -1,0 +1,161 @@
+* {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.fieldsContainer {
+  margin: 0;
+  width: 40vw;
+}
+
+.previewContainer {
+  width: 50vw;
+  text-align: left;
+  font-size: 14pt;
+  display: block;
+  padding: 5px 10px;
+  margin: 0 auto;
+  
+}
+
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  top: 0;
+  background-color: lightblue;
+}
+
+.control-form {
+  width: auto;
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: space-evenly;
+  grid-gap: 5px;
+  padding: 0 10px 5px 10px;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+.control-form input {
+  width: 35vw;
+  max-width: 35vw;
+  min-width: 35vw;
+  min-height: 14pt;
+  font-size: 14pt;
+  padding: 5px 10px;
+  margin: 0 auto 5px auto;
+  text-align: left;
+  border: 1px solid blue;
+}
+.control-form input:hover, .control-form textarea:hover {
+  border-color: green;
+}
+
+.control-form textarea {
+  width: 35vw;
+  max-width: 35vw;
+  min-width: 35vw;
+  height: 140px;
+  min-height: 100px;
+  font-size: 14pt;
+  padding: 0 10px 5px 10px;
+  margin: 0 auto 5px auto;
+  text-align: left;
+  border: 1px solid blue;
+}
+
+.template-field {
+  width: auto;
+  padding: 5px;
+}
+
+.edit-template-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-evenly;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.previewBox {
+  width: 47vw;
+  max-width: 47vw;
+  height: fit-content;
+  padding: 5px 10px;
+  margin: 0 auto 10px auto;
+  overflow: auto;
+}
+
+.listItemInput {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+  justify-content: center;
+  padding: 5px 5px 0px 5px;
+  width: 35vw;
+  margin-top: 5px; 
+}
+
+.listItemInput input {
+  width: 30vw;
+  max-width: 30vw;
+  min-width: 30vw;
+  height: 14pt;
+  min-height: 14pt;
+  font-size: 14pt;
+  padding: 5px 10px;
+  margin: 0px auto 5px auto;
+  text-align: left;
+  border: 1px solid magenta;
+}
+
+.listItemInput button {
+  font-size: 12pt;
+  text-align: center;
+  padding: 0;
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.listItemInput button:hover {
+  color: red;
+}
+
+.btnAddItem {
+  font-size: 10pt;
+  padding: 5px;
+  cursor: pointer;
+  width: 5vw;
+  background-color: white;
+  border: 2px solid darkcyan;
+}
+
+.btnAddItem:hover {
+  background-color: darkcyan;
+  border: 2px solid white;
+  color: white;
+}
+
+.containerTitle {
+  font-size: 16pt;
+  text-align: center;
+}
+
+/* Larger screen size: >= 1100px */
+@media only screen and (min-width: 1100px){
+  
+}
+
+/* Smaller screen size: >= 660px && < 1100px */
+@media only screen and (max-width: 1100px) {
+  
+}
+
+/* Smallest screen size: < 780px */
+@media only screen and (max-width: 780px) {
+  
+}
