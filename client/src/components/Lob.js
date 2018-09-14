@@ -4,7 +4,7 @@ class Lob extends Component {
   render() {
     return (
       <div>
-        <div>Line of business Page</div>
+        <div className='component-title'>Line of business Page</div>
       </div>
     );
   }

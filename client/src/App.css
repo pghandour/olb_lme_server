@@ -140,8 +140,13 @@
   color: white;
 }
 
-.containerTitle {
-  font-size: 16pt;
+.page-title {
+  font-size: 18pt;
+  text-align: center;
+}
+
+.component-title {
+  font-size: 15pt;
   text-align: center;
 }
 

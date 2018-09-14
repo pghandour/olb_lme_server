@@ -4,7 +4,7 @@ class FieldsTemplate extends Component {
   render() {
     return (
       <div className='fieldsContainer'>
-        <div className='containerTitle'>Template Controls</div>
+        <div className='component-title'>Template Controls</div>
         <form className='control-form'>
           {this.renderFields()}
         </form>
@@ -36,8 +36,9 @@ class FieldsTemplate extends Component {
               placeholder={node.dataName}
               onChange={this.onChange}
               value={fieldInputs[node.dataName]}
+              onKeyUp={this.onPressingEnter}
             ></input>
-            <button type='button' onClick={this.addNewItem} name={node.dataName} className='btnAddItem'>ADD</button>
+            <button type='button' onClick={this.addNewItem} name={node.dataName} className='btnAddItem' ref={node.dataName}>ADD</button>
             {
               listItems[node.dataName].length > 0 ?
                 listItems[node.dataName].map((item, index) => {
@@ -80,6 +81,16 @@ class FieldsTemplate extends Component {
 
   addNewItem = (e) => {
     this.props.addNewItem(e);
+  }
+
+  // when user press enter key in the list input, 
+  // simulate the click event for the add button
+  onPressingEnter = (e) => {
+    e.preventDefault();
+    if (e.keyCode === 13) {
+      const id = e.target.id;
+      this.refs[id].click();
+    }
   }
 
   onListItemChange = (e) => {

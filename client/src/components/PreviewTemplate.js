@@ -4,7 +4,7 @@ class PreviewTemplate extends Component {
   render() {
     return (
       <div className='previewContainer'>
-        <div className='containerTitle'>Template Preview</div>
+        <div className="component-title">Template Preview</div>
         <div className='sticky'>
           {this.renderElements()}
         </div>
@@ -23,7 +23,7 @@ class PreviewTemplate extends Component {
               <img
                 data-name={node.dataName}
                 data-name2={node.dataName2}
-                src={fieldInputs[node.dataName]}
+                src={fieldInputs[node.dataName] ? fieldInputs[node.dataName] : '[' + node.dataName + ']'}
                 alt={fieldInputs[node.dataName2] ? fieldInputs[node.dataName2] : '[' + node.dataName2 + ']'}
               />
             </div>

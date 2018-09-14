@@ -181,6 +181,7 @@ class EditTemplate extends Component {
   }
 
   deleteItem = (e) => {
+    e.preventDefault();
     const itemId = e.target.id;
     const listName = e.target.name;
 
