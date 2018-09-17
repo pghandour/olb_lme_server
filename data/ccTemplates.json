@@ -1,0 +1,45 @@
+
+const pathtoImgFolder = "../lob/cc/images/";
+const pathtoTemplateFolder = "../lob/cc/templates/";
+const templateFieldsFolder = "../template-fields/cc/";
+
+const ccTemplates = {
+
+	mp: [
+    {
+			templatePath: pathtoTemplateFolder + "mp/am_en.html",
+			imgPath: pathtoImgFolder + "am_en.png",
+			templateFieldsPath: templateFieldsFolder + "mp/am_en.html",
+    },
+    {
+			templatePath: pathtoTemplateFolder + "mp/am_terms_en.html",
+			imgPath: pathtoImgFolder + "am_terms_en.png",
+			templateFieldsPath: templateFieldsFolder + "mp/am_terms_en.html"
+    }
+  ],
+
+	inline: [
+    {
+			templatePath: pathtoTemplateFolder + "inline/preapprovedcc2_mc_en.html",
+			imgPath: pathtoImgFolder + "preapprovedcc2_mc_en.png",
+			templateFieldsPath: templateFieldsFolder + "inline/apreapprovedcc2_mc_enhtml"
+    },
+  ],
+
+	interstatial: [
+    {
+			templatePath: pathtoTemplateFolder + "interstatial/am_en.html",
+			imgPath: pathtoImgFolder + "am_en.png",
+			templateFieldsPath: templateFieldsFolder + "interstatial/am_en.html"
+    },
+  ],
+
+	msgCenter: [
+    {
+			templatePath: pathtoTemplateFolder + "interstatial/am_en.html",
+			imgPath: pathtoImgFolder + "am_en.png",
+			templateFieldsPath: templateFieldsFolder + "interstatial/am_en.html"
+    },
+  ]
+}
+*/

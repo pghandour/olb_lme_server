@@ -4,7 +4,9 @@ let allFilesList = [];
 const dropbox = document.getElementById('dropbox');
 const input = document.querySelector('#selectBtn');
 const rmAll = document.querySelector('#rmAllBtn');
-const submit = document.getElementById('uploadBtn')
+const submit = document.getElementById('uploadBtn');
+const cancel = document.getElementById('cancelBtn');
+
 let total = document.querySelector('#totalFiles');
 let preview = document.querySelector('#preview');
 let list = document.createElement('ol');
@@ -201,7 +203,7 @@ submit.addEventListener('click', (ev) => {
       const convertFiles2JsonPromise = convertFiles2Json('/uploading/html2json', res);
       if (convertFiles2JsonPromise) {
         convertFiles2JsonPromise.then((result) => {
-          document.location.href = `/successful/html2json`;
+          document.location.href = 'http://localhost:5000/lob/add';
           removeAllFiles();
         });
       }
@@ -244,3 +246,10 @@ function convertFiles2Json(url = ``, files) {
     .then(result => result)
     .catch(error => console.error('Error =>', error));
 }
+
+const goBack = () => {
+  removeAllFiles();
+  window.location.href = 'http://localhost:5000/';
+}
+
+cancel.addEventListener('click', goBack);

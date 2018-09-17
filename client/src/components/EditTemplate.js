@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { renderToString } from 'react-dom/server';
+
 import FieldsTemplate from './FieldsTemplate';
 import PreviewTemplate from './PreviewTemplate';
 import TestingInput from './TestingInput';
+import PreviewPage from './PreviewPage';
 
 class EditTemplate extends Component {
   state = {
@@ -24,6 +27,8 @@ class EditTemplate extends Component {
         />
         <hr />
         {this.showTemplates()}
+        <button onClick={this.openPreviewPage}>Preview</button>
+        <button onClick={this.downloadPreviewPage}>Download</button>
       </div>
     );
   }
@@ -94,6 +99,48 @@ class EditTemplate extends Component {
         </div>
       );
     } else { return null; }
+  }
+
+  openPreviewPage = () => {
+    const { fieldInputs, data, listItems } = this.state;
+
+    const finishedPage =
+      <PreviewPage
+        data={data}
+        fieldInputs={fieldInputs}
+        listItems={listItems}
+      />
+
+    const html = renderToString(finishedPage);
+
+    const previewWindow = window.open("", '_blank');
+    previewWindow.document.write(html);
+    previewWindow.document.close();
+  }
+
+  downloadPreviewPage = (e) => {
+    const { fieldInputs, data, listItems } = this.state;
+
+    const finishedPage =
+      <PreviewPage
+        data={data}
+        fieldInputs={fieldInputs}
+        listItems={listItems}
+      />
+
+    const html = renderToString(finishedPage);
+    const filename = "template.html";
+    this.download(filename, html);
+  }
+
+  download = (filename, html) => {
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(html));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   }
 
   /*
