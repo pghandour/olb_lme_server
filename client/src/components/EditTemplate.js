@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { renderToString } from 'react-dom/server';
+import axios from 'axios';
 
 import FieldsTemplate from './FieldsTemplate';
 import PreviewTemplate from './PreviewTemplate';
-import TestingInput from './TestingInput';
 import PreviewPage from './PreviewPage';
 
 class EditTemplate extends Component {
@@ -16,27 +16,15 @@ class EditTemplate extends Component {
   }
 
   render() {
-    const { templateName } = this.state;
-
     return (
       <div>
-        <TestingInput
-          onTemplateNameChange={this.onTemplateNameChange}
-          getData={this.getData}
-          templateName={templateName}
-        />
-        <hr />
-        {this.showTemplates()}
-        <button onClick={this.openPreviewPage}>Preview</button>
-        <button onClick={this.downloadPreviewPage}>Download</button>
+        <div>{this.showTemplates()}</div>
+        <div>
+          <button type='button' onClick={this.openPreviewPage} className=''>Preview</button>
+          <button type='button' onClick={this.downloadPreviewPage} className=''>Download</button>
+        </div>
       </div>
     );
-  }
-
-  onTemplateNameChange = (e) => {
-    this.setState({
-      templateName: e.target.value
-    });
   }
 
   decideExpectedFields = (nodes) => {
@@ -51,24 +39,23 @@ class EditTemplate extends Component {
     return expectedFields;
   }
 
-  getData = (e) => {
-    e.preventDefault();
+  componentDidMount = () => {
+    const url = `/getData/${this.props.match.params.name}`;
 
-    fetch(`/getData/${this.state.templateName}.html`, {
-      mode: "cors",
+    axios({
+      method: 'get',
+      mode: 'cors',
+      url: url
     })
-      .then(res => res.json())
       .then(result => {
-        console.log("Received data => ", result);
-        console.log('--------------------------------------------------------');
-
-        const expectedFields = this.decideExpectedFields(result);
+        const data = result.data;
+        const expectedFields = this.decideExpectedFields(data);
         const defaultInputs = this.initializeInputs(expectedFields);
-        const defaultLists = this.initializeLists(result);
+        const defaultLists = this.initializeLists(data);
 
         this.setState({
           templateName: '',
-          data: result,
+          data: data,
           expectedFields: expectedFields,
           fieldInputs: defaultInputs,
           listItems: defaultLists
@@ -84,25 +71,26 @@ class EditTemplate extends Component {
         <div className='edit-template-container'>
           <PreviewTemplate
             data={data}
-            fieldInputs={fieldInputs}
             listItems={listItems}
+            fieldInputs={fieldInputs}
           />
           <FieldsTemplate
             expectedFields={expectedFields}
-            onFieldInputChange={this.onFieldInputChange}
             fieldInputs={fieldInputs}
-            addNewItem={this.addNewItem}
             listItems={listItems}
-            onListItemChange={this.onListItemChange}
+            addNewItem={this.addNewItem}
             deleteItem={this.deleteItem}
+            onFieldInputChange={this.onFieldInputChange}
+            onListItemChange={this.onListItemChange}
           />
         </div>
       );
     } else { return null; }
   }
 
-  openPreviewPage = () => {
+  openPreviewPage = (e) => {
     const { fieldInputs, data, listItems } = this.state;
+    e.preventDefault();
 
     const finishedPage =
       <PreviewPage
@@ -120,6 +108,7 @@ class EditTemplate extends Component {
 
   downloadPreviewPage = (e) => {
     const { fieldInputs, data, listItems } = this.state;
+    e.preventDefault();
 
     const finishedPage =
       <PreviewPage

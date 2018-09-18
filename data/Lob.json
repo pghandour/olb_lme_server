@@ -1,0 +1,32 @@
+[
+	{
+		"name": "Credit Cards",
+		"description": "Credit Cards",
+		"imgPath": "/images/cc.png",
+		"shortcode": "cc"
+	},
+	{
+		"name": "Everyday Banking",
+		"description": "Everyday Banking",
+		"imgPath": "/images/edb.jpg",
+		"shortcode": "edb"
+	},
+	{
+		"name": "Investment Banking",
+		"description": "Investment Banking",
+		"imgPath": "/images/inv.jpg",
+		"shortcode": "inv"
+	},
+	{
+		"name": "Mortgages",
+		"description": "Mortgages",
+		"imgPath": "/images/mortgage.jpg",
+		"shortcode": "mortgage"
+	},
+	{
+		"name": "Smartfolio",
+		"description": "Smartfolio",
+		"imgPath": "/images/smartfolio.png",
+		"shortcode": "smart"
+	}
+]

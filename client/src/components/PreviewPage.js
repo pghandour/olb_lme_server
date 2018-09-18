@@ -91,7 +91,7 @@ class PreviewPage extends Component {
           default:
             return null;
         }
-      }
+      } else { return null; }
     });
   }
 

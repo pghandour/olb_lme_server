@@ -54,7 +54,7 @@ function convertHtml2Json(templateName) {
 }
 
 function writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath) {
-  const dataPath = './data/convertedTemplateInfo.json';
+  const dataPath = './data/Template.json';
   let currentData = [];
 
   currentData = JSON.parse(fs.readFileSync(dataPath));

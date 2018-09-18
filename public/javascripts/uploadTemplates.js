@@ -203,7 +203,7 @@ submit.addEventListener('click', (ev) => {
       const convertFiles2JsonPromise = convertFiles2Json('/uploading/html2json', res);
       if (convertFiles2JsonPromise) {
         convertFiles2JsonPromise.then((result) => {
-          document.location.href = 'http://localhost:5000/lob/add';
+          document.location.href = 'http://localhost:5000';
           removeAllFiles();
         });
       }

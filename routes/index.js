@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 router.get('/getData/:name', function (req, res, next) {
   const templateName = req.params.name;
 
-  const templateInfoPath = './data/convertedTemplateInfo.json';
+  const templateInfoPath = './data/Template.json';
 
   // get all current saved templates information
   const currentTemplates = JSON.parse(fs.readFileSync(templateInfoPath));
@@ -34,6 +34,46 @@ router.get('/getData/:name', function (req, res, next) {
   } else {
     res.send(templateData);
   }
+});
+
+router.get('/getLobData', (req, res) => {
+  const dataPath = './data/Lob.json';
+  const lobData = JSON.parse(fs.readFileSync(dataPath));
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.send(lobData);
+});
+
+router.get('/getCategories', (req, res) => {
+  const dataPath = './data/Category.json';
+  const categories = JSON.parse(fs.readFileSync(dataPath));
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.send(categories);
+});
+
+router.get('/getTemplateImg/:lob/:category', (req, res) => {
+  const lob = req.params.lob;
+  const category = req.params.category;
+
+  const dataPath = './data/Template.json';
+  const templateData = JSON.parse(fs.readFileSync(dataPath));
+
+  let imagesPath = [];
+
+  templateData.forEach(template => {
+    if (template.lob === lob && template.category === category) {
+      imagesPath.push(
+        {
+          templateName: template.templateName,
+          imgPath: template.templateImgPath
+        }
+      );
+    }
+  });
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.send(imagesPath);
 });
 
 module.exports = router;
