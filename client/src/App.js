@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 import './App.css'; // Load CSS styling
 
@@ -11,12 +11,17 @@ import EditTemplate from './components/EditTemplate';
 
 const App = () => (
   <div className='App'>
-    <div className='page-title'>OLB LME Template Generator</div>
-    <Route exact path='/' component={Homepage} />
-    <Route path='/lob' component={Lob} />
-    <Route path='/category/:lob' component={Category} />
-    <Route path='/select-template/:lob/:category' component={SelectTemplate} />
-    <Route path='/edit-template/:name' component={EditTemplate} />
+    <div className='page-title'>
+      <Link to="/">OLB LME Template Generator</Link>
+    </div>
+    <hr />
+    <Switch>
+      <Route exact path='/' component={Homepage} />
+      <Route path='/lob' component={Lob} />
+      <Route path='/category/:lob' component={Category} />
+      <Route path='/select-template/:lob/:category' component={SelectTemplate} />
+      <Route path='/edit-template/:lob/:category/:name' component={EditTemplate} />
+    </Switch>
   </div>
 );
 
@@ -24,13 +29,14 @@ export default App;
 
 const Homepage = ({ match }) => (
   <div>
-    <ul className='router-list'>
-      <li>
-        <a href='http://localhost:4000/'>Add New Template</a>
-      </li>
-      <li>
-        <Link to={`${match.url}lob`}>Select Existing Template</Link>
-      </li>
-    </ul>
+    <div className='component-title'>Select An Option:</div>
+    <div className='linkBtn-container'>
+      <a href='http://localhost:4000/'>
+        <button type='button' className='linkBtn'>Add New Template</button>
+      </a>
+      <Link to={`${match.url}lob`}>
+        <button type='button' className='linkBtn'>Select Existing Template</button>
+      </Link>
+    </div>
   </div>
 );

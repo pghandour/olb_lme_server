@@ -16,7 +16,13 @@ class Lob extends Component {
     return (
       <div className='page'>
         <div className='component-title'>Select Line of Business:</div>
-        <div>{this.showLobOptions()}</div>
+        <div className='lob-container'>{this.showLobOptions()}</div>
+        <hr />
+        <div className='actionBtn-container'>
+          <Link to='/'>
+            <button type='button' className='actionBtn'>Go Back</button>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -52,21 +58,15 @@ class Lob extends Component {
     } else {
       return lobData.map((data, index) => {
         return (
-          <div className='lob-box' key={index}>
-            <Link to={`/category/${data.shortcode}`} className='lob-name'>
-              <button ref={data.shortcode}>{data.name}</button>
-            </Link>
-            <img className='lob-img' src={data.imgPath} alt={data.shortcode} onClick={this.onClick}></img>
-          </div>
+          <Link to={`/category/${data.shortcode}`} key={index}>
+            <div className='lob-box'>
+              <div className='lob-name'>{data.name}</div>
+              <img className='lob-img' src={data.imgPath} alt={data.shortcode} ></img>
+            </div>
+          </Link>
         )
       });
     }
-  }
-
-  onClick = (e) => {
-    e.preventDefault();
-    const shortcode = e.target.alt;
-    this.refs[shortcode].click();
   }
 }
 

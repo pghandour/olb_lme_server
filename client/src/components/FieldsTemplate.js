@@ -83,7 +83,7 @@ class FieldsTemplate extends Component {
     this.props.addNewItem(e);
   }
 
-  // when user press enter key in the list input, 
+  // when user press enter key in the list input,
   // simulate the click event for the add button
   onPressingEnter = (e) => {
     e.preventDefault();

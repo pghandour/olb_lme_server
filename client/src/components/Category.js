@@ -16,7 +16,13 @@ class Category extends Component {
     return (
       <div className='page'>
         <div className='component-title'>Select Caregory:</div>
-        <ul>{this.showCategoryOptions()}</ul>
+        <div className='linkBtn-container'>{this.showCategoryOptions()}</div>
+        <hr />
+        <div className='actionBtn-container'>
+          <Link to='/lob'>
+            <button type='button' className='actionBtn'>Go Back</button>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -54,9 +60,11 @@ class Category extends Component {
     } else {
       return categories.map((category, index) => {
         return (
-          <li key={index}>
-            <Link to={`/select-template/${lobChoice}/${category.shortcode}`} className='category-name'>{category.name}</Link>
-          </li>
+          <div key={index}>
+            <Link to={`/select-template/${lobChoice}/${category.shortcode}`}>
+              <button className='linkBtn'>{category.name}</button>
+            </Link>
+          </div>
         )
       });
     }

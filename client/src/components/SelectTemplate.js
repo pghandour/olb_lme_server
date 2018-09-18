@@ -16,7 +16,13 @@ class SelectTemplate extends Component {
     return (
       <div className='page'>
         <div className='component-title'>Select Template:</div>
-        <div>{this.showLobOptions()}</div>
+        <div className='template-container'>{this.showLobOptions()}</div>
+        <hr />
+        <div className='actionBtn-container'>
+          <Link to={`/category/${this.props.match.params.lob}`}>
+            <button type='button' className='actionBtn'>Go Back</button>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -47,6 +53,8 @@ class SelectTemplate extends Component {
 
   showLobOptions = () => {
     const { error, isLoaded, templateImages } = this.state;
+    const category = this.props.match.params.category;
+    const lob = this.props.match.params.lob;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -56,18 +64,13 @@ class SelectTemplate extends Component {
       return templateImages.map((img, index) => {
         return (
           <div key={index}>
-            <Link to={`/edit-template/${img.templateName}`}><button hidden ref={img.templateName}></button></Link>
-            <img src={img.imgPath} alt={img.templateName} onClick={this.onImgClick}></img>
+            <Link to={`/edit-template/${lob}/${category}/${img.templateName}`}>
+              <img src={img.imgPath} alt={img.templateName} className='templateImg'></img>
+            </Link>
           </div>
         )
       });
     }
-  }
-
-  onImgClick = (e) => {
-    e.preventDefault();
-    const templateName = e.target.alt;
-    this.refs[templateName].click();
   }
 }
 

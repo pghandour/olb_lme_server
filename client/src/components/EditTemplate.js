@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { renderToString } from 'react-dom/server';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import FieldsTemplate from './FieldsTemplate';
 import PreviewTemplate from './PreviewTemplate';
@@ -16,12 +17,19 @@ class EditTemplate extends Component {
   }
 
   render() {
+    const category = this.props.match.params.category;
+    const lob = this.props.match.params.lob;
+
     return (
       <div>
         <div>{this.showTemplates()}</div>
-        <div>
-          <button type='button' onClick={this.openPreviewPage} className=''>Preview</button>
-          <button type='button' onClick={this.downloadPreviewPage} className=''>Download</button>
+        <hr />
+        <div className='actionBtn-container'>
+          <button type='button' onClick={this.openPreviewPage} className='actionBtn'>Preview</button>
+          <button type='button' onClick={this.downloadPreviewPage} className='actionBtn'>Download</button>
+          <Link to={`/select-template/${lob}/${category}`}>
+            <button type='button' className='actionBtn'>Go Back</button>
+          </Link>
         </div>
       </div>
     );
