@@ -22,12 +22,15 @@ router.post('/templates', upload.array('templates'), (req, res, next) => {
   res.send(JSON.stringify(uploadedFiles));
 });
 
-router.post('/html2json', function (req, res, next) {
+router.post('/html2json/:lob/:category', function (req, res, next) {
   const templateName = JSON.parse(req.body.templates);
+  const selectedLob = req.params.lob;
+  const selectedCategory = req.params.category;
 
   if (templateName.length > 0) {
     templateName.forEach(template => {
-      convertHtml2Json(template);
+      convertHtml2Json(template, selectedLob, selectedCategory);
+
     });
   }
 

@@ -86,8 +86,7 @@ class FieldsTemplate extends Component {
   // when user press enter key in the list input,
   // simulate the click event for the add button
   onPressingEnter = (e) => {
-    e.preventDefault();
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       const id = e.target.id;
       this.refs[id].click();
     }

@@ -23,7 +23,7 @@ const generateJson = require('./generateJson.js');
     ]
 
  */
-function convertHtml2Json(templateName) {
+function convertHtml2Json(templateName, lob, category) {
   const templatePath = `./uploads/${templateName}`;
   const jsonName = `${templateName.slice(0, -5)}.json`;
   const jsonFilePath = `./convertedJson/${jsonName}`;
@@ -50,20 +50,23 @@ function convertHtml2Json(templateName) {
   fs.writeFileSync(jsonFilePath, JSON.stringify(finalNodes));
   console.log(`\"${jsonName}\" is successfully saved in "/json" folder!`);
   console.log('--------------------------------------------------------');
-  writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath);
+  writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath, lob, category);
 }
 
-function writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath) {
+function writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath, lob, category) {
   const dataPath = './data/Template.json';
   let currentData = [];
 
   currentData = JSON.parse(fs.readFileSync(dataPath));
 
   const dataToSave = {
-    'templateName': templateName,
-    'templatePath': templatePath,
-    'convertedJsonName': jsonName,
-    'convertedJsonPath': jsonFilePath
+    "lob": lob,
+    "category": category,
+    "templateName": templateName,
+    "templatePath": templatePath,
+    "convertedJsonName": jsonName,
+    "convertedJsonPath": jsonFilePath,
+    "templateImgPath": ""
   };
 
   let len = currentData.length;

@@ -3,13 +3,10 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class SelectTemplate extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      templateImages: []
-    }
+  state = {
+    error: null,
+    isLoaded: false,
+    templateImages: []
   }
 
   render() {

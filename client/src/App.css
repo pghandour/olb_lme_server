@@ -151,11 +151,28 @@
 }
 
 .page-title {
-  color: #0075C4;
   text-align: center;
-  padding: 10px 20px;
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.page-title button {
+  padding: 15px 30px;
   font-size: 20pt;
+  color: #0075C4;
+  width: fit-content;
   margin-bottom: 20px;
+  border: 10px solid white;
+  border-left-color: #0075C4;
+  border-right-color: #0075C4;
+  background-color: white;
+}
+
+.page-title button:hover {
+  cursor: pointer;
+  background: #0075C4;
+  color: white;
+
 }
 
 .component-title {
@@ -303,6 +320,34 @@
   -o-transition: transform 0.6s;
 }
 
+.uploadBox {
+  width: 60vw;
+  min-width: 220px;
+  height: 140px;
+  background-color: white;
+  border: 5px solid #0075C4;
+  color: #0075C4;
+  margin: 10px auto;
+  padding: 15px;
+  text-align: center;
+}
+
+.uploadBox:hover {
+  cursor: pointer;
+  background-color: #0075C4;
+  color: white;
+}
+
+#lblDrop {
+  font-size: 15pt;
+  font-weight: bold;
+}
+
+#lblSelect {
+  font-weight: normal;
+  font-size: 14pt;
+}
+
 /* Smaller screen size: >= 660px && < 1100px */
 @media only screen and (max-width: 1200px) {
   .lob-container, .actionBtn-container {
@@ -364,5 +409,13 @@
 
   .page-title {
     font-size: 18pt;
+  }
+
+  #lblDrop {
+    font-weight: bold;
+  }
+  
+  #lblSelect {
+    font-size: 12pt;
   }
 }

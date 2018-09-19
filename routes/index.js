@@ -52,6 +52,22 @@ router.get('/getCategories', (req, res) => {
   res.send(categories);
 });
 
+router.get('/getLobAndCategory', (req, res) => {
+  const lobDataPath = './data/Lob.json';
+  const categoryDataPath = './data/Category.json';
+
+  const lobData = JSON.parse(fs.readFileSync(lobDataPath));
+  const categories = JSON.parse(fs.readFileSync(categoryDataPath));
+
+  let dataToReturn = {
+    lobOptions: lobData,
+    categoryOptions: categories
+  }
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.send(dataToReturn);
+});
+
 router.get('/getTemplateImg/:lob/:category', (req, res) => {
   const lob = req.params.lob;
   const category = req.params.category;

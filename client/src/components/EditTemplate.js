@@ -98,7 +98,6 @@ class EditTemplate extends Component {
 
   openPreviewPage = (e) => {
     const { fieldInputs, data, listItems } = this.state;
-    e.preventDefault();
 
     const finishedPage =
       <PreviewPage
@@ -116,7 +115,6 @@ class EditTemplate extends Component {
 
   downloadPreviewPage = (e) => {
     const { fieldInputs, data, listItems } = this.state;
-    e.preventDefault();
 
     const finishedPage =
       <PreviewPage
