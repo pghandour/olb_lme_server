@@ -39,7 +39,7 @@ const Homepage = ({ match }) => (
         <button type='button' className='linkBtn'>Add New Template</button>
       </Link>
       <Link to={`${match.url}lob`}>
-        <button type='button' className='linkBtn'>Select Existing Template</button>
+        <button type='button' className='linkBtn'>Edit Template</button>
       </Link>
     </div>
   </div>

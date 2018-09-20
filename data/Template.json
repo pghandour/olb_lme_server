@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "lob": "cc",
+    "category": "mp",
+    "templateName": "sample.html",
+    "templatePath": "./uploads/sample.html",
+    "convertedJsonName": "sample.json",
+    "convertedJsonPath": "./convertedJson/sample.json",
+    "templateImgPath": "/images/sample.png"
+  },
+  {
+    "lob": "edb",
+    "category": "inl",
+    "templateName": "sample.html",
+    "templatePath": "./uploads/sample.html",
+    "convertedJsonName": "sample.json",
+    "convertedJsonPath": "./convertedJson/sample.json",
+    "templateImgPath": "/images/sample.png"
+  },
+  {
+    "lob": "mortgage",
+    "category": "int",
+    "templateName": "sample.html",
+    "templatePath": "./uploads/sample.html",
+    "convertedJsonName": "sample.json",
+    "convertedJsonPath": "./convertedJson/sample.json",
+    "templateImgPath": "/images/sample.png"
+  }
+]

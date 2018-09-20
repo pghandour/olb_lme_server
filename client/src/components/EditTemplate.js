@@ -26,7 +26,7 @@ class EditTemplate extends Component {
         <hr />
         <div className='actionBtn-container'>
           <button type='button' onClick={this.openPreviewPage} className='actionBtn'>Preview</button>
-          <button type='button' onClick={this.downloadPreviewPage} className='actionBtn'>Download</button>
+          <button type='button' onClick={this.downloadHtml} className='actionBtn'>Download</button>
           <Link to={`/select-template/${lob}/${category}`}>
             <button type='button' className='actionBtn'>Go Back</button>
           </Link>
@@ -113,19 +113,22 @@ class EditTemplate extends Component {
     previewWindow.document.close();
   }
 
-  downloadPreviewPage = (e) => {
+  downloadHtml = (e) => {
     const { fieldInputs, data, listItems } = this.state;
 
-    const finishedPage =
-      <PreviewPage
-        data={data}
-        fieldInputs={fieldInputs}
-        listItems={listItems}
-      />
+    const templateTitle = prompt("Please enter template title:", "MyTemplate.html");
 
-    const html = renderToString(finishedPage);
-    const filename = "template.html";
-    this.download(filename, html);
+    if (templateTitle != null) {
+      const finishedPage =
+        <PreviewPage
+          data={data}
+          fieldInputs={fieldInputs}
+          listItems={listItems}
+        />
+
+      const html = renderToString(finishedPage);
+      this.download(templateTitle, html);
+    }
   }
 
   download = (filename, html) => {

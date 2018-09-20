@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import UploadBox from './UploadBox';
 
@@ -94,7 +95,11 @@ class AddTemplate extends Component {
   showSuccessMessage = () => (
     this.state.uploadSuccess ?
       <div className="successMsg">
-        <strong>Success!</strong> All files have been uploaded to the server.
+        <span className='btnCloseMsg' onClick={() => { this.setState({ uploadSuccess: false }); }}>&times;</span>
+        <p><strong>Success!</strong> All files have been uploaded to the server.</p>
+        <Link to='lob'>
+          <button type='button' className='linkBtn'>Edit Template</button>
+        </Link>
       </div>
       : null
   )
@@ -204,9 +209,6 @@ class AddTemplate extends Component {
             <Link to="/">
               <button type='button'>OLB LME Template Generator</button>
             </Link>
-            setTimeout(() => {
-              this.setState({ uploadSuccess: false });
-            }, 3000);
           });
         });
       });
@@ -345,3 +347,7 @@ export default AddTemplate;
 const DefaultOpiton = (props) => (
   <option value='' disabled={true} hidden={true}>{props.text}</option>
 );
+
+DefaultOpiton.PropTypes = {
+  text: PropTypes.string
+}

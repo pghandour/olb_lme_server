@@ -254,7 +254,7 @@
   background-color: white;
   color: #0075C4;
   width: fit-content;
-  min-width: 300px;
+  min-width: 240px;
   height: fit-content;
   padding: 15px 25px;
   text-align: center;
@@ -395,6 +395,17 @@
   top: 0;
 }
 
+.btnCloseMsg {
+  font-size: 22pt;
+  float: right;
+  transition: 0.4s;
+}
+
+.btnCloseMsg:hover {
+  cursor: pointer;
+  color: #D80000;
+}
+
 #lblDrop {
   font-size: 15pt;
   font-weight: bold;
@@ -486,6 +497,17 @@
 
   .App {
     padding: 10px;
+  }
+
+  .successMsg {
+    padding: 10px;
+  }
+
+  .linkBtn, .actionBtn {
+    min-width: 140px;
+    padding: 10px 15px;
+    font-size: 11pt;
+    margin: 5px;
   }
 
   #lblDrop {
