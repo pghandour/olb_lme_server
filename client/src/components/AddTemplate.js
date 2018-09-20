@@ -201,8 +201,11 @@ class AddTemplate extends Component {
           this.convertFiles2Json(urlHtml2Json, response, imagesPath).then(() => {
             this.removeAllFiles();
             this.setState({ uploadSuccess: true });
+            <Link to="/">
+              <button type='button'>OLB LME Template Generator</button>
+            </Link>
             setTimeout(() => {
-              this.refs['toHome'].click();
+              this.setState({ uploadSuccess: false });
             }, 3000);
           });
         });
@@ -212,7 +215,7 @@ class AddTemplate extends Component {
     } else if (!categoryIsSelected) {
       alert('Please select "Category"');
     } else {
-      alert('Please choose images and HTMLs');
+      alert('Please choose correct images and HTMLs with same name and amount');
     }
   }
 
