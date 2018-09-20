@@ -15,7 +15,8 @@ class AddTemplate extends Component {
     error: null,
     isLoaded: false,
     lobOptions: [],
-    categoryOptions: []
+    categoryOptions: [],
+    uploadSuccess: false
   }
 
   render() {
@@ -24,32 +25,32 @@ class AddTemplate extends Component {
     return (
       <div className='page'>
         <div className='component-title'>Add New Template:</div>
-        <select
-          value={selectedLob}
-          onChange={this.handleChange}
-          name='lob'
-        >
-          <option
-            value=''
-            disabled={true}
-            hidden={true}
-          >{'Choose Line of Business:'}</option>
-          {this.showLobOptions()}
-        </select>
-        <select
-          value={selectedCategory}
-          onChange={this.handleChange}
-          name='category'
-        >
-          <option
-            value=''
-            disabled={true}
-            hidden={true}
-          >{'Choose Category:'}</option>
-          {this.showCategoryOptions()}
-        </select>
+        {this.showSuccessMessage()}
+        <div className='selectContainer'>
+          <select
+            value={selectedLob}
+            onChange={this.handleChange}
+            name='lob'
+            className='selectBox'
+          >
+            <DefaultOpiton text={'Choose Line of Business:'} />
+            {this.showLobOptions()}
+          </select>
+          <select
+            value={selectedCategory}
+            onChange={this.handleChange}
+            name='category'
+            className='selectBox'
+          >
+            <DefaultOpiton text={'Choose Category:'} />
+            {this.showCategoryOptions()}
+          </select>
+        </div>
         <UploadBox fileTypes={fileTypes} updateFiles={this.updateFiles} />
-        <ol>{this.showSelectedFiles()}</ol>
+        <ol className='selectedFileList'>
+          <div id='fileList-title'>Selected Files:</div>
+          {this.showSelectedFiles()}
+        </ol>
         {this.showBtnSection()}
       </div>
     );
@@ -87,6 +88,14 @@ class AddTemplate extends Component {
       this.setState({ selectedCategory: selectedValue, categoryIsSelected: true });
     }
   }
+
+  showSuccessMessage = () => (
+    this.state.uploadSuccess ?
+      <div class="successMsg">
+        <strong>Success!</strong> All files have been uploaded to the server.
+      </div>
+      : null
+  )
 
   showLobOptions = () => {
     return this.state.lobOptions.map((option, index) => {
@@ -154,7 +163,10 @@ class AddTemplate extends Component {
           if (convertFiles2JsonPromise) {
             convertFiles2JsonPromise.then((result) => {
               this.removeAllFiles();
-              this.refs['toHome'].click();
+              this.setState({ uploadSuccess: true });
+              setTimeout(() => {
+                this.refs['toHome'].click();
+              }, 3000);
             });
           }
         });
@@ -211,13 +223,13 @@ class AddTemplate extends Component {
     const { files } = this.state;
 
     if (files.length === 0) {
-      return (<div>No file selected</div>);
+      return (<div id='fileList-nofile'>No file selected</div>);
     } else {
       return files.map((file, index) => {
         return (
-          <li key={index} ref={file.name}>
+          <li key={index} ref={file.name} className='fileItems'>
             {`${file.name} (${this.returnFileSize(file.size)})`}
-            <button onClick={this.onRemoveFile} name={file.name}>X</button>
+            <button className='btnRemoveFile' onClick={this.onRemoveFile} name={file.name}>&times;</button>
           </li>
         )
       });
@@ -248,3 +260,7 @@ class AddTemplate extends Component {
 }
 
 export default AddTemplate;
+
+const DefaultOpiton = (props) => (
+  <option value='' disabled={true} hidden={true}>{props.text}</option>
+);

@@ -1,5 +1,5 @@
 * {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .App {
@@ -122,12 +122,12 @@
 }
 
 .listItemInput button {
-  font-size: 12pt;
-  text-align: center;
-  padding: 0;
+  font-size: 18pt;
+  text-align: justify;
+  padding: 0px;
   background: none;
   border: none;
-  font-weight: bold;
+  transition: 0.3s;
 }
 
 .listItemInput button:hover {
@@ -327,7 +327,7 @@
   background-color: white;
   border: 5px solid #0075C4;
   color: #0075C4;
-  margin: 10px auto;
+  margin: 20px auto;
   padding: 15px;
   text-align: center;
 }
@@ -338,6 +338,63 @@
   color: white;
 }
 
+.selectContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+  padding: 10px;
+  margin: 20px auto;
+  justify-content: space-evenly;
+}
+
+.selectBox {
+  font-size: 12pt;
+  width: fit-content;
+  height: fit-content;
+  min-width: 220px;
+}
+
+.selectBox:hover {
+  cursor: pointer;
+}
+
+.btnRemoveFile {
+  font-size: 20px;
+  border: none;
+  background: none;
+  color: #D80000;
+  transition: 0.5s;
+  margin: 0px 5px;
+  text-align: center;
+  border-radius: 20%;
+}
+
+.btnRemoveFile:hover {
+  cursor: pointer;
+  background: #D80000;
+  color: white;
+}
+
+.selectedFileList {
+  width: 50vw;
+  min-width: 240px;
+  height: fit-content;
+  color: #0075C4;
+  margin: 0px auto 20px auto;
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 14pt;
+}
+
+.successMsg {
+  background-color: #00B950;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+}
+
 #lblDrop {
   font-size: 15pt;
   font-weight: bold;
@@ -346,6 +403,14 @@
 #lblSelect {
   font-weight: normal;
   font-size: 14pt;
+}
+
+#fileList-title {
+  font-size: 16pt;
+  color: #D80000;
+  text-align: start;
+  padding: 10px 10px;
+  background: none;
 }
 
 /* Smaller screen size: >= 660px && < 1100px */
@@ -409,6 +474,18 @@
 
   .page-title {
     font-size: 18pt;
+  }
+
+  .selectContainer {
+    grid-template-columns: auto;
+  }
+
+  .fileItems {
+    font-size: 11pt;
+  }
+
+  .App {
+    padding: 10px;
   }
 
   #lblDrop {

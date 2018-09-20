@@ -51,7 +51,7 @@ class FieldsTemplate extends Component {
                         onChange={this.onListItemChange}
                         value={item}
                       ></input>
-                      <button type='button' onClick={this.deleteItem} id={index} name={node.dataName}>X</button>
+                      <button type='button' onClick={this.deleteItem} id={index} name={node.dataName}>&times;</button>
                     </div>
                   )
                 })

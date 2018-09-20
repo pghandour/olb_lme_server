@@ -19,7 +19,6 @@ class UploadBox extends Component {
       >
         <input
           type='file'
-          multiple
           accept={acceptFileTypes}
           onChange={this.handleFiles}
           hidden
