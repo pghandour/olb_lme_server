@@ -11,12 +11,14 @@ class AddTemplate extends Component {
     lobIsSelected: false,
     categoryIsSelected: false,
     files: [],
-    fileTypes: ['text/html'],
+    fileTypes: ['text/html', 'image/*'],
     error: null,
     isLoaded: false,
     lobOptions: [],
     categoryOptions: [],
-    uploadSuccess: false
+    uploadSuccess: false,
+    images: [],
+    htmls: []
   }
 
   render() {
@@ -91,7 +93,7 @@ class AddTemplate extends Component {
 
   showSuccessMessage = () => (
     this.state.uploadSuccess ?
-      <div class="successMsg">
+      <div className="successMsg">
         <strong>Success!</strong> All files have been uploaded to the server.
       </div>
       : null
@@ -132,14 +134,39 @@ class AddTemplate extends Component {
   )
 
   updateFiles = (files) => {
-    let filesToUpload = this.state.files;
+    let selectedFiles = this.state.files;
+    let imagesToUpload = this.state.images;
+    let htmlsToUpload = this.state.htmls;
+    const { fileTypes } = this.state;
 
     for (let i = 0, len = files.length; i < len; i++) {
-      if (!this.checkDuplicateFiles(filesToUpload, files[i].name)) {
-        filesToUpload.push(files[i]);
+      if (this.validFileType(files[i]) && !this.checkDuplicateFiles(selectedFiles, files[i].name)) {
+        selectedFiles.push(files[i]);
+
+        // if the file type is image, save to state "images"
+        if (files[i].type.slice(0, 6) === 'image/') {
+          imagesToUpload.push(files[i]);
+        } else {
+          htmlsToUpload.push(files[i]);
+        }
       }
     }
-    this.setState({ files: filesToUpload });
+    this.setState({ files: selectedFiles });
+  }
+
+  validFileType = (file) => {
+    const { fileTypes } = this.state;
+
+    for (let i = 0, len = fileTypes.length; i < len; i++) {
+      if (file.type === fileTypes[i]) {
+        return true;
+      } else if (file.type.slice(0, 6) === fileTypes[i].slice(0, 6)) {
+        // if file is an image type
+        return true;
+      }
+    }
+
+    return false;
   }
 
   checkDuplicateFiles = (fileList, name) => {
@@ -152,42 +179,51 @@ class AddTemplate extends Component {
   }
 
   onSubmitFiles = () => {
-    const { files, selectedLob, selectedCategory, lobIsSelected, categoryIsSelected } = this.state;
+    const {
+      selectedLob,
+      selectedCategory,
+      lobIsSelected,
+      categoryIsSelected,
+      images,
+      htmls
+    } = this.state;
 
-    if (lobIsSelected && categoryIsSelected && files.length > 0) {
-      const sendFilesPromise = this.sendFiles('/uploading/templates', files);
-      if (sendFilesPromise) {
-        sendFilesPromise.then(res => {
-          const convertFiles2JsonPromise =
-            this.convertFiles2Json(`/uploading/html2json/${selectedLob}/${selectedCategory}`, res);
-          if (convertFiles2JsonPromise) {
-            convertFiles2JsonPromise.then((result) => {
-              this.removeAllFiles();
-              this.setState({ uploadSuccess: true });
-              setTimeout(() => {
-                this.refs['toHome'].click();
-              }, 3000);
-            });
-          }
+    const urlUploadTemplates = '/uploading/templates';
+    const urlUploadTemplateImages = '/uploading/templateimages';
+    const urlHtml2Json = `/uploading/html2json/${selectedLob}/${selectedCategory}`;
+
+    if (lobIsSelected && categoryIsSelected
+      && images.length > 0 && htmls.length > 0
+      && images.length === htmls.length
+    ) {
+      this.sendImages(urlUploadTemplateImages, images).then((imagesPath) => {
+        this.sendHtmls(urlUploadTemplates, htmls).then((response) => {
+          this.convertFiles2Json(urlHtml2Json, response, imagesPath).then(() => {
+            this.removeAllFiles();
+            this.setState({ uploadSuccess: true });
+            setTimeout(() => {
+              this.refs['toHome'].click();
+            }, 3000);
+          });
         });
-      }
+      });
     } else if (!lobIsSelected) {
       alert('Please select "Line of Business"');
     } else if (!categoryIsSelected) {
       alert('Please select "Category"');
     } else {
-      alert('Please choose your files');
+      alert('Please choose images and HTMLs');
     }
   }
 
-  sendFiles(url = ``, data) {
-    const len = data.length;
+  sendHtmls(url = ``, htmls) {
+    const len = htmls.length;
 
     if (len > 0) {
       let formData = new FormData();
 
       for (let i = 0; i < len; i++) {
-        formData.append('templates', data[i]);
+        formData.append('templates', htmls[i]);
       }
 
       return fetch(url, {
@@ -200,15 +236,38 @@ class AddTemplate extends Component {
     }
   }
 
-  convertFiles2Json(url = ``, files) {
-    const templates = { templates: files };
+  sendImages(url = ``, images) {
+    const len = images.length;
+
+    if (len > 0) {
+      let formData = new FormData();
+
+      for (let i = 0; i < len; i++) {
+        formData.append('templateimages', images[i]);
+      }
+
+      return fetch(url, {
+        method: 'POST',
+        body: formData
+      })
+        .then(res => res.text())
+        .then(result => result)
+        .catch(error => console.error('Error =>', error));
+    }
+  }
+
+  convertFiles2Json(url = ``, htmlNames, imagesPath) {
+    const data = {
+      htmlNames: htmlNames,
+      imagesPath: imagesPath
+    };
 
     return fetch(url, {
       method: 'POST',
       headers: {
         'content-type': "application/json"
       },
-      body: JSON.stringify(templates)
+      body: JSON.stringify(data)
     })
       .then(res => res.text())
       .then(result => result)
@@ -216,7 +275,7 @@ class AddTemplate extends Component {
   }
 
   removeAllFiles = () => {
-    this.setState({ files: [] });
+    this.setState({ files: [], htmls: [], images: [] });
   }
 
   showSelectedFiles = () => {
@@ -248,14 +307,33 @@ class AddTemplate extends Component {
 
   onRemoveFile = (e) => {
     const fileName = e.target.name;
-    const { files } = this.state;
+    const { files, images, htmls } = this.state;
 
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0, j = 0, k = 0; i < files.length; i++) {
+      console.log(i, j, k);
+
       if (files[i].name === fileName) {
+        if (files[i].type.slice(0, 6) === 'image/') {
+          images.splice(j, 1);
+        } else {
+          htmls.splice(k, 1);
+        }
+
         files.splice(i, 1);
+        break;
+      }
+
+      if (files[i].type.slice(0, 6) === 'image/') {
+        j++;
+      } else {
+        k++;
       }
     }
-    this.setState({ files: files });
+    this.setState({
+      files: files,
+      images: images,
+      htmls: htmls
+    });
   }
 }
 

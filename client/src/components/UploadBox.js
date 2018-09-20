@@ -7,7 +7,8 @@ class UploadBox extends Component {
     fileTypes.forEach(type => {
       acceptFileTypes += type + ',';
     });
-    acceptFileTypes.slice(-1);
+
+    acceptFileTypes = acceptFileTypes.slice(0, -1);
 
     return (
       <div
@@ -19,6 +20,7 @@ class UploadBox extends Component {
       >
         <input
           type='file'
+          multiple={true}
           accept={acceptFileTypes}
           onChange={this.handleFiles}
           hidden

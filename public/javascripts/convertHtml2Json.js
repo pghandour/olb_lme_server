@@ -23,7 +23,7 @@ const generateJson = require('./generateJson.js');
     ]
 
  */
-function convertHtml2Json(templateName, lob, category) {
+function convertHtml2Json(templateName, lob, category, imagePath) {
   const templatePath = `./uploads/${templateName}`;
   const jsonName = `${templateName.slice(0, -5)}.json`;
   const jsonFilePath = `./convertedJson/${jsonName}`;
@@ -50,10 +50,14 @@ function convertHtml2Json(templateName, lob, category) {
   fs.writeFileSync(jsonFilePath, JSON.stringify(finalNodes));
   console.log(`\"${jsonName}\" is successfully saved in "/json" folder!`);
   console.log('--------------------------------------------------------');
-  writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath, lob, category);
+
+  writeNamesAndPathInfo(templateName, templatePath, jsonName,
+    jsonFilePath, lob, category, imagePath);
 }
 
-function writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePath, lob, category) {
+function writeNamesAndPathInfo(templateName, templatePath,
+  jsonName, jsonFilePath, lob, category, imagePath) {
+
   const dataPath = './data/Template.json';
   let currentData = [];
 
@@ -66,13 +70,16 @@ function writeNamesAndPathInfo(templateName, templatePath, jsonName, jsonFilePat
     "templatePath": templatePath,
     "convertedJsonName": jsonName,
     "convertedJsonPath": jsonFilePath,
-    "templateImgPath": ""
+    "templateImgPath": imagePath
   };
 
   let len = currentData.length;
   if (len > 0) {
     for (let i = 0; i < len; i++) {
-      if (currentData[i].templateName === dataToSave.templateName) {
+      if (currentData[i].templateName === dataToSave.templateName
+        && currentData[i].lob === dataToSave.lob
+        && currentData[i].category === dataToSave.category
+      ) {
         currentData[i] = dataToSave;
         break;
       }
