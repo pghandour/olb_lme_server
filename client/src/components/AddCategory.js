@@ -27,6 +27,7 @@ class AddCategory extends Component {
         console.log(error);
       });
   }
+  
   render() {
     const { name, description, shortcode } = this.state;
     return (
