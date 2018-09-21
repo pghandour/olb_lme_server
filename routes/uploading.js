@@ -71,4 +71,27 @@ router.post('/html2json/:lob/:category', function (req, res, next) {
   res.send("Success! Converted HTML to JSON.");
 });
 
+router.post('/add-category', function (req, res, next) {
+  var filePath = 'data/Category.json';
+  var categories;
+  fs.readFile(filePath, 'utf8', function (err, data) {
+    if (err) throw err;
+    
+    //read in the data
+    categories = JSON.parse(data); 
+    
+    // add the new category
+    categories.push(req.body) 
+    
+    // Make it into an object
+    var newCategories = JSON.stringify(categories); 
+
+    // Write it to file
+    fs.writeFile(filePath, newCategories, (err, data) => {
+      if (err) throw err;
+      res.send("Success: Added Category")
+    });
+  });
+});
+
 module.exports = router;
