@@ -9,6 +9,8 @@ import Category from './components/Category';
 import SelectTemplate from './components/SelectTemplate';
 import EditTemplate from './components/EditTemplate';
 import AddTemplate from './components/AddTemplate';
+import AddCategory from './components/AddCategory';
+import AddLob from './components/AddLob';
 
 const App = () => (
   <div className='App'>
@@ -25,6 +27,8 @@ const App = () => (
       <Route path='/select-template/:lob/:category' component={SelectTemplate} />
       <Route path='/edit-template/:lob/:category/:name' component={EditTemplate} />
       <Route path='/add-new-template' component={AddTemplate} />
+      <Route path='/add-new-category' component={AddCategory} />
+      <Route path='/add-new-lob' component={AddLob} />
     </Switch>
   </div>
 );
@@ -40,6 +44,12 @@ const Homepage = ({ match }) => (
       </Link>
       <Link to={`${match.url}lob`}>
         <button type='button' className='linkBtn'>Edit Template</button>
+      </Link>
+      <Link to={`${match.url}add-new-category`}>
+        <button type='button' className='linkBtn'>Add Category</button>
+      </Link>
+      <Link to={`${match.url}add-new-lob`}>
+        <button type='button' className='linkBtn'>Add Lob</button>
       </Link>
     </div>
   </div>
